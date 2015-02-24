@@ -28,7 +28,7 @@ public class Execucao extends ProgressoSimulacao{
         //    arquivoIn = new File(args[0]);
         //} else {
        
-        arquivoIn = new File("./src/ispd/test.imsx");
+        arquivoIn = new File("./src/ispd/test2.imsx");
         //}
         if (arquivoIn.getName().endsWith(".imsx") && arquivoIn.exists()) {
             try {

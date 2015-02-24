@@ -10,21 +10,21 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
- * Executa.java
+ * Main.java
  * ---------------
  * (C) Copyright 2014, by Grupo de pesquisas em Sistemas Paralelos e Distribuídos da Unesp (GSPD).
  *
@@ -39,12 +39,26 @@
  */
 package ispd;
 
+import ispd.gui.JPrincipal;
+import ispd.gui.LogExceptions;
+import ispd.gui.SplashWindow;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+
 /**
- * Classe de teste do iSPD
+ * Classe de inicialização do iSPD. Indetifica se deve executar comando a partir
+ * do termila ou carrega interface gráfica
  *
- * @author Covello
+ * @author denison
  */
-public class Main extends Execucao{
+public class Main extends Execucao {
 
     /**
      * @param args the command line arguments

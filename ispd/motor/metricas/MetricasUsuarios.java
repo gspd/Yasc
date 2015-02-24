@@ -52,14 +52,14 @@ public class MetricasUsuarios {
 
     private HashMap<String, Integer> usuarios;
     private List<String> listaUsuarios;
-    private List<Double> poderComputacional;
+    private List<Double> unidadeTarefa;
     private List<HashSet<Tarefa>> tarefasSubmetidas;
     private List<HashSet<Tarefa>> tarefasConcluidas;
     
     public MetricasUsuarios(){
         usuarios = new HashMap<String, Integer>();
         listaUsuarios = new ArrayList<String>();
-        poderComputacional = new ArrayList<Double>();
+        unidadeTarefa = new ArrayList<Double>();
         tarefasSubmetidas = new ArrayList<HashSet<Tarefa>>();
         tarefasConcluidas = new ArrayList<HashSet<Tarefa>>();
     }
@@ -67,7 +67,7 @@ public class MetricasUsuarios {
     public void addUsuario(String nome, Double poderComputacional){
         this.listaUsuarios.add(nome);
         this.usuarios.put(nome, listaUsuarios.indexOf(nome));
-        this.poderComputacional.add(poderComputacional);
+        this.unidadeTarefa.add(poderComputacional);
         this.tarefasSubmetidas.add(new HashSet<Tarefa>());
         this.tarefasConcluidas.add(new HashSet<Tarefa>());
     }
@@ -76,7 +76,7 @@ public class MetricasUsuarios {
         for(int i = 0; i < nomes.size(); i++){
             this.listaUsuarios.add(nomes.get(i));
             this.usuarios.put(nomes.get(i), i);
-            this.poderComputacional.add(poderComputacional.get(i));
+            this.unidadeTarefa.add(poderComputacional.get(i));
             this.tarefasSubmetidas.add(new HashSet<Tarefa>());
             this.tarefasConcluidas.add(new HashSet<Tarefa>());
         }
@@ -88,7 +88,7 @@ public class MetricasUsuarios {
             if(index == null){
                 this.listaUsuarios.add(mtc.listaUsuarios.get(i));
                 this.usuarios.put(mtc.listaUsuarios.get(i), this.listaUsuarios.indexOf(mtc.listaUsuarios.get(i)));
-                this.poderComputacional.add(mtc.poderComputacional.get(i));
+                this.unidadeTarefa.add(mtc.unidadeTarefa.get(i));
                 this.tarefasSubmetidas.add(mtc.tarefasSubmetidas.get(i));
                 this.tarefasConcluidas.add(mtc.tarefasConcluidas.get(i));
             }else{
@@ -170,10 +170,10 @@ public class MetricasUsuarios {
         return tarefasSubmetidas;
     }
 
-    public double getPoderComputacional(String user) {
+    public double getUnidadeTarefa(String user) {
         Integer index = usuarios.get(user);
         if (index != -1) {
-            return poderComputacional.get(index);
+            return unidadeTarefa.get(index);
         } else {
             return -1;
         }

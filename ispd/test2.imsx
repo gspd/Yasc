@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE system SYSTEM "iSPD.dtd">
+<system version="1.2">
+    <owner id="user1"/>
+    <sc_processing id="mac1" load="0.0" owner="user1" power="100.0">
+        <position x="141" y="184"/>
+        <icon_id global="1" local="1"/>
+    </sc_processing>
+    <sc_processing id="mac0" load="0.0" owner="user1" power="100.0">
+        <master scheduler="RoundRobin">
+            <slave id="1"/>
+        </master>
+        <position x="136" y="28"/>
+        <icon_id global="0" local="0"/>
+    </sc_processing>
+    <sc_comunication bandwidth="10.0" id="sc_comunication3" latency="0.2" load="0.2">
+        <connect destination="0" origination="1"/>
+        <position x="141" y="184"/>
+        <position x="136" y="28"/>
+        <icon_id global="3" local="1"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="sc_comunication2" latency="0.2" load="0.2">
+        <connect destination="1" origination="0"/>
+        <position x="136" y="28"/>
+        <position x="141" y="184"/>
+        <icon_id global="2" local="0"/>
+    </sc_comunication>
+    <load>
+        <node application="app0" id_master="mac0" owner="user1" tasks="10">
+            <size maximum="10.0" minimum="10.0" type="computing"/>
+            <size maximum="10.0" minimum="10.0" type="communication"/>
+        </node>
+    </load>
+</system>

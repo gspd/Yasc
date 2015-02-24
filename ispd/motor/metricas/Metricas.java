@@ -70,7 +70,7 @@ public class Metricas implements Serializable {
     private double tempoMedioComunicacao;
     private double tempoMedioFilaProcessamento;
     private double tempoMedioProcessamento;
-    private double MflopsDesperdicio;
+    private double UnudadesDesperdicio;
     private int numTarefasCanceladas;
     private int numTarefas;
 
@@ -82,7 +82,7 @@ public class Metricas implements Serializable {
         tempoMedioComunicacao = 0;
         tempoMedioFilaProcessamento = 0;
         tempoMedioProcessamento = 0;
-        MflopsDesperdicio = 0;
+        UnudadesDesperdicio = 0;
         numTarefasCanceladas = 0;
         numTarefas = 0;
     }
@@ -169,8 +169,8 @@ public class Metricas implements Serializable {
         return tempoMedioProcessamento;
     }
 
-    public double getMflopsDesperdicio() {
-        return MflopsDesperdicio;
+    public double getUnudadesDesperdicio() {
+        return UnudadesDesperdicio;
     }
 
     public int getNumTarefasCanceladas() {
@@ -185,28 +185,28 @@ public class Metricas implements Serializable {
         //Média das Metricas Globais
         metricasGlobais.setTempoSimulacao(metricasGlobais.getTempoSimulacao() / numeroDeSimulacoes);
         metricasGlobais.setSatisfacaoMedia(metricasGlobais.getSatisfacaoMedia() / numeroDeSimulacoes);
-        metricasGlobais.setOciosidadeComputacao(metricasGlobais.getOciosidadeComputacao() / numeroDeSimulacoes);
-        metricasGlobais.setOciosidadeComunicacao(metricasGlobais.getOciosidadeComunicacao() / numeroDeSimulacoes);
+        metricasGlobais.setOciosidadeTarefa(metricasGlobais.getOciosidadeTarefa() / numeroDeSimulacoes);
+        metricasGlobais.setOciosidadeComunicacaoTarefa(metricasGlobais.getOciosidadeTarefa() / numeroDeSimulacoes);
         metricasGlobais.setEficiencia(metricasGlobais.getEficiencia() / numeroDeSimulacoes);
         //Média das Metricas da rede de filas
         this.tempoMedioFilaComunicacao = this.tempoMedioFilaComunicacao / numeroDeSimulacoes;
         this.tempoMedioComunicacao = this.tempoMedioComunicacao / numeroDeSimulacoes;
         this.tempoMedioFilaProcessamento = this.tempoMedioFilaProcessamento / numeroDeSimulacoes;
         this.tempoMedioProcessamento = this.tempoMedioFilaProcessamento / numeroDeSimulacoes;
-        this.MflopsDesperdicio = this.MflopsDesperdicio / numeroDeSimulacoes;
+        this.UnudadesDesperdicio = this.UnudadesDesperdicio / numeroDeSimulacoes;
         this.numTarefasCanceladas = this.numTarefasCanceladas / numeroDeSimulacoes;
         //Média das Metricas de Comunicação
         for (Map.Entry<String, MetricasComunicacao> entry : metricasComunicacao.entrySet()) {
             String key = entry.getKey();
             MetricasComunicacao item = entry.getValue();
-            item.setMbitsTransmitidos(item.getMbitsTransmitidos() / numeroDeSimulacoes);
+            item.setUnidadesTransmitidas(item.getUnidadesTransmitidas() / numeroDeSimulacoes);
             item.setSegundosDeTransmissao(item.getSegundosDeTransmissao() / numeroDeSimulacoes);
         }
         //Média das Metricas de Processamento
         for (Map.Entry<String, MetricasProcessamento> entry : metricasProcessamento.entrySet()) {
             String key = entry.getKey();
             MetricasProcessamento item = entry.getValue();
-            item.setMflopsProcessados(item.getMFlopsProcessados() / numeroDeSimulacoes);
+            item.setUnidadeProcessada(item.getUnidadeProcessada() / numeroDeSimulacoes);
             item.setSegundosDeProcessamento(item.getSegundosDeProcessamento() / numeroDeSimulacoes);
         }
 
@@ -223,7 +223,7 @@ public class Metricas implements Serializable {
         this.tempoMedioFilaProcessamento = 0;
         this.tempoMedioProcessamento = 0;
         this.numTarefasCanceladas = 0;
-        this.MflopsDesperdicio = 0;
+        this.UnudadesDesperdicio = 0;
         this.numTarefas = 0;
 
         Double mediaPoder = 0.0;
@@ -244,11 +244,11 @@ public class Metricas implements Serializable {
             if (no.getEstado() == Tarefa.CONCLUIDO) {
                 tempoMedioFilaComunicacao += no.getMetricas().getTempoEsperaComu();
                 tempoMedioComunicacao += no.getMetricas().getTempoComunicacao();
-                tempoMedioFilaProcessamento = no.getMetricas().getTempoEsperaProc();
+                tempoMedioFilaProcessamento = no.getMetricas().getTempoEspera();
                 tempoMedioProcessamento = no.getMetricas().getTempoProcessamento();
                 numTarefas++;
             } else if (no.getEstado() == Tarefa.CANCELADO) {
-                MflopsDesperdicio += no.getTamProcessamento() * no.getMflopsProcessado();
+                UnudadesDesperdicio += no.getTamProcessamento() * no.getMflopsProcessado();
                 numTarefasCanceladas++;
             }
             //Rever, se for informação pertinente adicionar nas métricas da tarefa ou CS_Processamento e calcula durante a simulação
@@ -296,8 +296,8 @@ public class Metricas implements Serializable {
     private void addMetricasGlobais(MetricasGlobais global) {
         metricasGlobais.setTempoSimulacao(metricasGlobais.getTempoSimulacao() + global.getTempoSimulacao());
         metricasGlobais.setSatisfacaoMedia(metricasGlobais.getSatisfacaoMedia() + global.getSatisfacaoMedia());
-        metricasGlobais.setOciosidadeComputacao(metricasGlobais.getOciosidadeComputacao() + global.getOciosidadeComputacao());
-        metricasGlobais.setOciosidadeComunicacao(metricasGlobais.getOciosidadeComunicacao() + global.getOciosidadeComunicacao());
+        metricasGlobais.setOciosidadeTarefa(metricasGlobais.getOciosidadeTarefa() + global.getOciosidadeTarefa());
+        metricasGlobais.setOciosidadeComunicacaoTarefa(metricasGlobais.getOciosidadeComunicacaoTarefa() + global.getOciosidadeComunicacaoTarefa());
         metricasGlobais.setEficiencia(metricasGlobais.getEficiencia() + global.getEficiencia());
     }
 
@@ -309,7 +309,7 @@ public class Metricas implements Serializable {
                 String key = entry.getKey();
                 MetricasComunicacao item = entry.getValue();
                 MetricasComunicacao base = this.metricasComunicacao.get(key);
-                base.incMbitsTransmitidos(item.getMbitsTransmitidos());
+                base.incUnidadesTransmitidas(item.getUnidadesTransmitidas());
                 base.incSegundosDeTransmissao(item.getSegundosDeTransmissao());
             }
         }
@@ -323,8 +323,8 @@ public class Metricas implements Serializable {
                 String key = entry.getKey();
                 MetricasProcessamento item = entry.getValue();
                 MetricasProcessamento base = this.metricasProcessamento.get(key);
-                base.incMflopsProcessados(item.getMFlopsProcessados());
-                base.incSegundosDeProcessamento(item.getSegundosDeProcessamento());
+                base.incUnidadeProcessada(item.getUnidadeProcessada());
+                base.incSegundosProcessados(item.getSegundosDeProcessamento());
             }
         }
     }
@@ -334,7 +334,7 @@ public class Metricas implements Serializable {
         this.tempoMedioComunicacao += metrica.tempoMedioComunicacao;
         this.tempoMedioFilaProcessamento += metrica.tempoMedioFilaProcessamento;
         this.tempoMedioProcessamento += metrica.tempoMedioFilaProcessamento;
-        this.MflopsDesperdicio += metrica.MflopsDesperdicio;
+        this.UnudadesDesperdicio += metrica.UnudadesDesperdicio;
         this.numTarefasCanceladas += metrica.numTarefasCanceladas;
     }
 

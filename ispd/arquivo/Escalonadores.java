@@ -551,11 +551,13 @@ public class Escalonadores implements ManipularArquivos {
         }
     }
 
+    @Override
     public List listarAdicionados() {
         return adicionados;
     }
 
- public List listarRemovidos() {
+    @Override
+    public List listarRemovidos() {
         return removidos;
     }
 }

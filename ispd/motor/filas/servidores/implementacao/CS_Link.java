@@ -129,7 +129,7 @@ public class CS_Link extends CS_Comunicacao {
     @Override
     public void saidaDeCliente(Simulacao simulacao, Tarefa cliente) {
         //Incrementa o número de Mbits transmitido por este link
-        this.getMetrica().incMbitsTransmitidos(cliente.getTamComunicacao());
+        this.getMetrica().incUnidadesTransmitidas(cliente.getTamComunicacao());
         //Incrementa o tempo de transmissão
         double tempoTrans = this.tempoTransmitir(cliente.getTamComunicacao());
         this.getMetrica().incSegundosDeTransmissao(tempoTrans);
@@ -162,7 +162,7 @@ public class CS_Link extends CS_Comunicacao {
         if (tipo == EventoFuturo.SAIDA_MENSAGEM) {
             tempoTransmitirMensagem += tempoTransmitir(cliente.getTamComunicacao());
             //Incrementa o número de Mbits transmitido por este link
-            this.getMetrica().incMbitsTransmitidos(cliente.getTamComunicacao());
+            this.getMetrica().incUnidadesTransmitidas(cliente.getTamComunicacao());
             //Incrementa o tempo de transmissão
             double tempoTrans = this.tempoTransmitir(cliente.getTamComunicacao());
             this.getMetrica().incSegundosDeTransmissao(tempoTrans);

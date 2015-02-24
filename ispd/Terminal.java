@@ -631,8 +631,8 @@ public class Terminal {
                     MetricasGlobais global = new MetricasGlobais(redeDeFilas, sim.getTime(null), tarefas);
                     metricasGlobais.setTempoSimulacao(metricasGlobais.getTempoSimulacao() + global.getTempoSimulacao());
                     metricasGlobais.setSatisfacaoMedia(metricasGlobais.getSatisfacaoMedia() + global.getSatisfacaoMedia());
-                    metricasGlobais.setOciosidadeComputacao(metricasGlobais.getOciosidadeComputacao() + global.getOciosidadeComputacao());
-                    metricasGlobais.setOciosidadeComunicacao(metricasGlobais.getOciosidadeComunicacao() + global.getOciosidadeComunicacao());
+                    metricasGlobais.setOciosidadeTarefa(metricasGlobais.getOciosidadeTarefa() + global.getOciosidadeTarefa());
+                    metricasGlobais.setOciosidadeComunicacaoTarefa(metricasGlobais.getOciosidadeComunicacaoTarefa() + global.getOciosidadeComunicacaoTarefa());
                     metricasGlobais.setEficiencia(metricasGlobais.getEficiencia() + global.getEficiencia());
                 } else {
                     Metricas temp = sim.getMetricas();
@@ -640,8 +640,8 @@ public class Terminal {
                     MetricasGlobais global = temp.getMetricasGlobais();
                     metricasGlobais.setTempoSimulacao(metricasGlobais.getTempoSimulacao() + global.getTempoSimulacao());
                     metricasGlobais.setSatisfacaoMedia(metricasGlobais.getSatisfacaoMedia() + global.getSatisfacaoMedia());
-                    metricasGlobais.setOciosidadeComputacao(metricasGlobais.getOciosidadeComputacao() + global.getOciosidadeComputacao());
-                    metricasGlobais.setOciosidadeComunicacao(metricasGlobais.getOciosidadeComunicacao() + global.getOciosidadeComunicacao());
+                    metricasGlobais.setOciosidadeTarefa(metricasGlobais.getOciosidadeTarefa() + global.getOciosidadeTarefa());
+                    metricasGlobais.setOciosidadeComunicacaoTarefa(metricasGlobais.getOciosidadeComunicacaoTarefa() + global.getOciosidadeComunicacaoTarefa());
                     metricasGlobais.setEficiencia(metricasGlobais.getEficiencia() + global.getEficiencia());
                 }
                 double t2 = System.currentTimeMillis();

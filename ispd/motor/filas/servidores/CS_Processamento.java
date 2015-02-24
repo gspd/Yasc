@@ -78,7 +78,7 @@ public abstract class CS_Processamento extends CentroServico {
     }
     
     public int getnumeroMaquina(){
-        return metrica.getnumeroMaquina();
+        return metrica.getNumeroProcesso();
     }
     
     

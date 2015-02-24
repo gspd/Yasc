@@ -147,10 +147,10 @@ public class CS_Mestre extends CS_Processamento implements Mestre, Mensagens, Ve
     public void saidaDeCliente(Simulacao simulacao, Tarefa cliente) {
         if (cliente.getEstado() == Tarefa.PROCESSANDO) {
             //Incrementa o número de Mbits transmitido por este link
-            this.getMetrica().incMflopsProcessados(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
+            this.getMetrica().incUnidadeProcessada(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
             //Incrementa o tempo de transmissão
             double tempoProc = this.tempoProcessar(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
-            this.getMetrica().incSegundosDeProcessamento(tempoProc);
+            this.getMetrica().incSegundosProcessados(tempoProc);
             //Incrementa o tempo de transmissão no pacote
             cliente.finalizarAtendimentoProcessamento(simulacao.getTime(this));
             //Gera evento para chegada da tarefa no proximo servidor
@@ -394,9 +394,9 @@ public class CS_Mestre extends CS_Processamento implements Mestre, Mensagens, Ve
         double tempoProc = simulacao.getTime(this) - inicioAtendimento;
         double mflopsProcessados = this.getMflopsProcessados(tempoProc);
         //Incrementa o número de Mflops processados por este recurso
-        this.getMetrica().incMflopsProcessados(mflopsProcessados);
+        this.getMetrica().incUnidadeProcessada(mflopsProcessados);
         //Incrementa o tempo de processamento
-        this.getMetrica().incSegundosDeProcessamento(tempoProc);
+        this.getMetrica().incSegundosProcessados(tempoProc);
         //Incrementa procentagem da tarefa processada
         mensagem.getTarefa().setMflopsProcessado(mflopsProcessados);
         mensagem.getTarefa().incMflopsDesperdicados(mflopsProcessados);
@@ -425,9 +425,9 @@ public class CS_Mestre extends CS_Processamento implements Mestre, Mensagens, Ve
             double tempoProc = simulacao.getTime(this) - inicioAtendimento;
             double mflopsProcessados = this.getMflopsProcessados(tempoProc);
             //Incrementa o número de Mflops processados por este recurso
-            this.getMetrica().incMflopsProcessados(mflopsProcessados);
+            this.getMetrica().incUnidadeProcessada(mflopsProcessados);
             //Incrementa o tempo de processamento
-            this.getMetrica().incSegundosDeProcessamento(tempoProc);
+            this.getMetrica().incSegundosProcessados(tempoProc);
             //Incrementa procentagem da tarefa processada
             mensagem.getTarefa().setMflopsProcessado(mflopsProcessados);
         }
@@ -476,9 +476,9 @@ public class CS_Mestre extends CS_Processamento implements Mestre, Mensagens, Ve
             double tempoProc = simulacao.getTime(this) - inicioAtendimento;
             double mflopsProcessados = this.getMflopsProcessados(tempoProc);
             //Incrementa o número de Mflops processados por este recurso
-            this.getMetrica().incMflopsProcessados(mflopsProcessados);
+            this.getMetrica().incUnidadeProcessada(mflopsProcessados);
             //Incrementa o tempo de processamento
-            this.getMetrica().incSegundosDeProcessamento(tempoProc);
+            this.getMetrica().incSegundosProcessados(tempoProc);
             //Incrementa procentagem da tarefa processada
             double numCP = ((int) (mflopsProcessados / mensagem.getTarefa().getCheckPoint())) * mensagem.getTarefa().getCheckPoint();
             mensagem.getTarefa().setMflopsProcessado(numCP);

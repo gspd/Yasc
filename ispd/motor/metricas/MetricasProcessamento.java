@@ -50,33 +50,37 @@ public class MetricasProcessamento implements Serializable{
     /**
      * Armazena o total de processamento realizado em MFlops
      */
-    private double MFlopsProcessados;
+    /**
+     * Comentário pós alteração:
+     * --Armazena o total de processamento realizado na unidade da simulação--
+     */
+    private double UnidadeProcessada;
     /**
      * armazena o total de processamento realizado em segundos
      */
     private double SegundosDeProcessamento;
     private String id;
     private String proprietario;
-    private int numeroMaquina;
+    private int numeroProcesso;
     
-    public MetricasProcessamento(String id, int numeroMaquina, String proprietario) {
-        this.MFlopsProcessados = 0;
+    public MetricasProcessamento(String id, int numeroProcesso, String proprietario) {
+        this.UnidadeProcessada = 0;
         this.SegundosDeProcessamento = 0;
         this.id = id;
-        this.numeroMaquina = numeroMaquina;
+        this.numeroProcesso = numeroProcesso;
         this.proprietario = proprietario;
     }
 
-    public void incMflopsProcessados(double MflopsProcessados) {
-        this.MFlopsProcessados += MflopsProcessados;
+    public void incUnidadeProcessada(double UnidadeProcessada) {
+        this.UnidadeProcessada += UnidadeProcessada;
     }
 
-    public void incSegundosDeProcessamento(double SegundosProcessados) {
+    public void incSegundosProcessados(double SegundosProcessados) {
         this.SegundosDeProcessamento += SegundosProcessados;
     }
 
-    public double getMFlopsProcessados() {
-        return MFlopsProcessados;
+    public double getUnidadeProcessada() {
+        return UnidadeProcessada;
     }
 
     public double getSegundosDeProcessamento() {
@@ -91,12 +95,12 @@ public class MetricasProcessamento implements Serializable{
         return proprietario;
     }
 
-    public int getnumeroMaquina() {
-        return numeroMaquina;
+    public int getNumeroProcesso() {
+        return numeroProcesso;
     }
 
-    void setMflopsProcessados(double d) {
-        this.MFlopsProcessados = d;
+    void setUnidadeProcessada(double d) {
+        this.UnidadeProcessada = d;
     }
 
     void setSegundosDeProcessamento(double d) {

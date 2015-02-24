@@ -220,7 +220,7 @@ public class Tarefa implements Cliente {
     }
 
     public void finalizarEsperaProcessamento(double tempo) {
-        this.metricas.incTempoEsperaProc(tempo - inicioEspera);
+        this.metricas.incTempoEspera(tempo - inicioEspera);
     }
 
     public void iniciarAtendimentoProcessamento(double tempo) {

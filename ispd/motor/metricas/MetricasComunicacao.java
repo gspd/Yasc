@@ -50,7 +50,7 @@ public class MetricasComunicacao implements Serializable {
     /**
      * Armazena o total de comunicação realizada em Mbits
      */
-    private double MbitsTransmitidos;
+    private double UnidadesTransmitidas;
     /**
      * Armazena o total de comunicação realizada em segundos
      */
@@ -59,20 +59,20 @@ public class MetricasComunicacao implements Serializable {
     
     public MetricasComunicacao(String id) {
         this.id = id;
-        this.MbitsTransmitidos = 0;
+        this.UnidadesTransmitidas = 0;
         this.SegundosDeTransmissao = 0;
     }
 
-    public void incMbitsTransmitidos(double MbitsTransmitidos) {
-        this.MbitsTransmitidos += MbitsTransmitidos;
+    public void incUnidadesTransmitidas(double MbitsTransmitidos) {
+        this.UnidadesTransmitidas += MbitsTransmitidos;
     }
 
     public void incSegundosDeTransmissao(double SegundosDeTransmissao) {
         this.SegundosDeTransmissao += SegundosDeTransmissao;
     }
 
-    public double getMbitsTransmitidos() {
-        return MbitsTransmitidos;
+    public double getUnidadesTransmitidas() {
+        return UnidadesTransmitidas;
     }
 
     public double getSegundosDeTransmissao() {
@@ -83,8 +83,8 @@ public class MetricasComunicacao implements Serializable {
         return id;
     }
 
-    void setMbitsTransmitidos(double d) {
-        this.MbitsTransmitidos = d;
+    void setUnidadesTransmitidas(double d) {
+        this.UnidadesTransmitidas = d;
     }
 
     void setSegundosDeTransmissao(double d) {

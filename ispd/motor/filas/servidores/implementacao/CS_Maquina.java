@@ -174,10 +174,10 @@ public class CS_Maquina extends CS_Processamento implements Mensagens, Vertice {
     @Override
     public void saidaDeCliente(Simulacao simulacao, Tarefa cliente) {
         //Incrementa o número de Mbits transmitido por este link
-        this.getMetrica().incMflopsProcessados(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
+        this.getMetrica().incUnidadeProcessada(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
         //Incrementa o tempo de processamento
         double tempoProc = this.tempoProcessar(cliente.getTamProcessamento() - cliente.getMflopsProcessado());
-        this.getMetrica().incSegundosDeProcessamento(tempoProc);
+        this.getMetrica().incSegundosProcessados(tempoProc);
         //Incrementa o tempo de transmissão no pacote
         cliente.finalizarAtendimentoProcessamento(simulacao.getTime(this));
         tarefaEmExecucao.remove(cliente);
@@ -296,9 +296,9 @@ public class CS_Maquina extends CS_Processamento implements Mensagens, Vertice {
         double tempoProc = simulacao.getTime(this) - inicioAtendimento;
         double mflopsProcessados = this.getMflopsProcessados(tempoProc);
         //Incrementa o número de Mflops processados por este recurso
-        this.getMetrica().incMflopsProcessados(mflopsProcessados);
+        this.getMetrica().incUnidadeProcessada(mflopsProcessados);
         //Incrementa o tempo de processamento
-        this.getMetrica().incSegundosDeProcessamento(tempoProc);
+        this.getMetrica().incSegundosProcessados(tempoProc);
         //Incrementa porcentagem da tarefa processada
         mensagem.getTarefa().setMflopsProcessado(mflopsProcessados);
         mensagem.getTarefa().incMflopsDesperdicados(mflopsProcessados);
@@ -330,9 +330,9 @@ public class CS_Maquina extends CS_Processamento implements Mensagens, Vertice {
             double tempoProc = simulacao.getTime(this) - inicioAtendimento;
             double mflopsProcessados = this.getMflopsProcessados(tempoProc);
             //Incrementa o número de Mflops processados por este recurso
-            this.getMetrica().incMflopsProcessados(mflopsProcessados);
+            this.getMetrica().incUnidadeProcessada(mflopsProcessados);
             //Incrementa o tempo de processamento
-            this.getMetrica().incSegundosDeProcessamento(tempoProc);
+            this.getMetrica().incSegundosProcessados(tempoProc);
             //Incrementa procentagem da tarefa processada
             mensagem.getTarefa().setMflopsProcessado(mflopsProcessados);
             tarefaEmExecucao.remove(mensagem.getTarefa());
@@ -382,9 +382,9 @@ public class CS_Maquina extends CS_Processamento implements Mensagens, Vertice {
             double tempoProc = simulacao.getTime(this) - inicioAtendimento;
             double mflopsProcessados = this.getMflopsProcessados(tempoProc);
             //Incrementa o número de Mflops processados por este recurso
-            this.getMetrica().incMflopsProcessados(mflopsProcessados);
+            this.getMetrica().incUnidadeProcessada(mflopsProcessados);
             //Incrementa o tempo de processamento
-            this.getMetrica().incSegundosDeProcessamento(tempoProc);
+            this.getMetrica().incSegundosProcessados(tempoProc);
             //Incrementa procentagem da tarefa processada
             double numCP = ((int) (mflopsProcessados / mensagem.getTarefa().getCheckPoint())) * mensagem.getTarefa().getCheckPoint();
             mensagem.getTarefa().setMflopsProcessado(numCP);
@@ -437,9 +437,9 @@ public class CS_Maquina extends CS_Processamento implements Mensagens, Vertice {
                 double tempoProc = simulacao.getTime(this) - inicioAtendimento;
                 double mflopsProcessados = this.getMflopsProcessados(tempoProc);
                 //Incrementa o número de Mflops processados por este recurso
-                this.getMetrica().incMflopsProcessados(mflopsProcessados);
+                this.getMetrica().incUnidadeProcessada(mflopsProcessados);
                 //Incrementa o tempo de processamento
-                this.getMetrica().incSegundosDeProcessamento(tempoProc);
+                this.getMetrica().incSegundosProcessados(tempoProc);
                 //Incrementa procentagem da tarefa processada
                 double numCP = ((int) (mflopsProcessados / tar.getCheckPoint())) * tar.getCheckPoint();
                 tar.setMflopsProcessado(numCP);

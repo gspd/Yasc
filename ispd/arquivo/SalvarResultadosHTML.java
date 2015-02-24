@@ -139,8 +139,8 @@ public class SalvarResultadosHTML {
         } else {
             this.globais += "<li><strong>Satisfaction</strong>" + satisfacao + "</li>\n";
         }
-        this.globais += "<li><strong>Idleness of processing resources</strong> = " + globais.getOciosidadeComputacao() + " %</li>\n"
-                + "<li><strong>Idleness of communication resources</strong> = " + globais.getOciosidadeComunicacao() + " %</li>\n"
+        this.globais += "<li><strong>Idleness of processing resources</strong> = " + globais.getOciosidadeTarefa() + " %</li>\n"
+                + "<li><strong>Idleness of communication resources</strong> = " + globais.getOciosidadeComunicacaoTarefa() + " %</li>\n"
                 + "<li><strong>Efficiency</strong> = " + globais.getEficiencia() + " %</li>\n";
         if (globais.getEficiencia() > 70.0) {
             this.globais += "<li><span style=\"color:#00ff00;\"><strong>Efficiency GOOD</strong></span></li>\n";

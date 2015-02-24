@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE system SYSTEM "iSPD.dtd">
+<system version="1">
+    <owner id="user1"/>
+    <sc_processing id="icon4" load="0.0" owner="user1" power="100.0">
+        <position x="286" y="212"/>
+        <icon_id global="4" local="4"/>
+    </sc_processing>
+    <sc_comunication bandwidth="10.0" id="icon6" latency="0.01" load="0.01">
+        <connect destination="2" origination="1"/>
+        <position x="347" y="122"/>
+        <position x="241" y="35"/>
+        <icon_id global="6" local="1"/>
+    </sc_comunication>
+    <sc_processing id="icon3" load="0.0" owner="user1" power="100.0">
+        <position x="160" y="209"/>
+        <icon_id global="3" local="3"/>
+    </sc_processing>
+    <sc_processing id="icon0" load="0.0" owner="user1" power="100.0">
+        <position x="102" y="90"/>
+        <icon_id global="0" local="0"/>
+    </sc_processing>
+    <sc_comunication bandwidth="10.0" id="icon12" latency="0.01" load="0.01">
+        <connect destination="0" origination="1"/>
+        <position x="102" y="90"/>
+        <position x="241" y="35"/>
+        <icon_id global="12" local="7"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon15" latency="0.01" load="0.01">
+        <connect destination="1" origination="2"/>
+        <position x="241" y="35"/>
+        <position x="347" y="122"/>
+        <icon_id global="15" local="10"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon7" latency="0.01" load="0.01">
+        <connect destination="4" origination="2"/>
+        <position x="286" y="212"/>
+        <position x="347" y="122"/>
+        <icon_id global="7" local="2"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon13" latency="0.01" load="0.01">
+        <connect destination="1" origination="3"/>
+        <position x="241" y="35"/>
+        <position x="160" y="209"/>
+        <icon_id global="13" local="8"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon5" latency="0.1" load="0.1">
+        <connect destination="1" origination="0"/>
+        <position x="241" y="35"/>
+        <position x="102" y="90"/>
+        <icon_id global="5" local="0"/>
+    </sc_comunication>
+    <sc_processing id="icon2" load="0.0" owner="user1" power="100.0">
+        <position x="347" y="122"/>
+        <icon_id global="2" local="2"/>
+    </sc_processing>
+    <sc_comunication bandwidth="10.0" id="icon9" latency="0.1" load="0.1">
+        <connect destination="0" origination="3"/>
+        <position x="102" y="90"/>
+        <position x="160" y="209"/>
+        <icon_id global="9" local="4"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon11" latency="0.1" load="0.01">
+        <connect destination="3" origination="1"/>
+        <position x="160" y="209"/>
+        <position x="241" y="35"/>
+        <icon_id global="11" local="6"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon10" latency="0.01" load="0.01">
+        <connect destination="4" origination="1"/>
+        <position x="286" y="212"/>
+        <position x="241" y="35"/>
+        <icon_id global="10" local="5"/>
+    </sc_comunication>
+    <sc_processing id="icon1" load="0.0" owner="user1" power="100.0">
+        <master scheduler="RoundRobin">
+            <slave id="0"/>
+            <slave id="2"/>
+            <slave id="3"/>
+            <slave id="4"/>
+        </master>
+        <position x="241" y="35"/>
+        <icon_id global="1" local="1"/>
+    </sc_processing>
+    <sc_comunication bandwidth="10.0" id="icon14" latency="0.01" load="0.01">
+        <connect destination="1" origination="4"/>
+        <position x="241" y="35"/>
+        <position x="286" y="212"/>
+        <icon_id global="14" local="9"/>
+    </sc_comunication>
+    <sc_comunication bandwidth="10.0" id="icon8" latency="0.01" load="0.01">
+        <connect destination="3" origination="4"/>
+        <position x="160" y="209"/>
+        <position x="286" y="212"/>
+        <icon_id global="8" local="3"/>
+    </sc_comunication>
+    <load>
+        <node application="application0" id_master="icon1" owner="user1" tasks="100">
+            <size maximum="100.0" minimum="100.0" type="computing"/>
+            <size maximum="100.0" minimum="100.0" type="communication"/>
+        </node>
+    </load>
+</system>

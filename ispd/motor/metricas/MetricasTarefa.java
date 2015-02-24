@@ -45,9 +45,9 @@ package ispd.motor.metricas;
  */
 public class MetricasTarefa {
     /**
-     * Recebe tempo total que a tarefa permaneceu em um fila de um recurso de computação
+     * Recebe tempo total que a tarefa permaneceu em uma fila 
      */
-    private double tempoEsperaProc = 0;
+    private double tempoEspera = 0;
     /**
      * Recebe tempo total que a tarefa permaneceu em um fila de um recurso de comunicação
      */
@@ -71,8 +71,8 @@ public class MetricasTarefa {
         this.tempoEsperaComu += tempoEsperaComu;
     }
 
-    public void incTempoEsperaProc(double tempoEsperaProc) {
-        this.tempoEsperaProc += tempoEsperaProc;
+    public void incTempoEspera(double tempoEspera) {
+        this.tempoEspera+= tempoEspera;
     }
 
     public void incTempoProcessamento(double tempoProcessamento) {
@@ -91,8 +91,8 @@ public class MetricasTarefa {
         return tempoEsperaComu;
     }
 
-    public double getTempoEsperaProc() {
-        return tempoEsperaProc;
+    public double getTempoEspera() {
+        return tempoEspera;
     }
 
     public double getTempoProcessamento() {

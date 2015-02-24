@@ -54,16 +54,16 @@ public class MetricasGlobais implements Serializable {
 
     private double tempoSimulacao;
     private double satisfacaoMedia;
-    private double ociosidadeComputacao;
-    private double ociosidadeComunicacao;
+    private double ociosidadeTarefa;
+    private double ociosidadeComunicacaoTarefa;
     private double eficiencia;
     private int total;
 
     public MetricasGlobais(RedeDeFilas redeDeFilas, double tempoSimulacao, List<Tarefa> tarefas) {
         this.tempoSimulacao = tempoSimulacao;
         this.satisfacaoMedia = 100;
-        this.ociosidadeComputacao = getOciosidadeComputacao(redeDeFilas);
-        this.ociosidadeComunicacao = getOciosidadeComunicacao(redeDeFilas);
+        this.ociosidadeTarefa = getOciosidadeTarefa(redeDeFilas);
+        this.ociosidadeComunicacaoTarefa = getOciosidadeComunicacaoTarefa(redeDeFilas);
         this.eficiencia = getEficiencia(tarefas);
         this.total = 0;
     }
@@ -71,8 +71,8 @@ public class MetricasGlobais implements Serializable {
     public MetricasGlobais() {
         this.tempoSimulacao = 0;
         this.satisfacaoMedia = 0;
-        this.ociosidadeComputacao = 0;
-        this.ociosidadeComunicacao = 0;
+        this.ociosidadeTarefa = 0;
+        this.ociosidadeComunicacaoTarefa = 0;
         this.eficiencia = 0;
         this.total = 0;
     }
@@ -81,12 +81,12 @@ public class MetricasGlobais implements Serializable {
         return eficiencia;
     }
 
-    public double getOciosidadeComputacao() {
-        return ociosidadeComputacao;
+    public double getOciosidadeTarefa() {
+        return ociosidadeTarefa;
     }
 
-    public double getOciosidadeComunicacao() {
-        return ociosidadeComunicacao;
+    public double getOciosidadeComunicacaoTarefa() {
+        return ociosidadeComunicacaoTarefa;
     }
 
     public double getSatisfacaoMedia() {
@@ -97,7 +97,7 @@ public class MetricasGlobais implements Serializable {
         return tempoSimulacao;
     }
 
-    private double getOciosidadeComputacao(RedeDeFilas redeDeFilas) {
+    private double getOciosidadeTarefa(RedeDeFilas redeDeFilas) {
         double tempoLivreMedio = 0.0;
         for (CS_Processamento maquina : redeDeFilas.getMaquinas()) {
             double aux = maquina.getMetrica().getSegundosDeProcessamento();
@@ -110,7 +110,7 @@ public class MetricasGlobais implements Serializable {
         return (tempoLivreMedio * 100) / getTempoSimulacao();
     }
 
-    private double getOciosidadeComunicacao(RedeDeFilas redeDeFilas) {
+    private double getOciosidadeComunicacaoTarefa(RedeDeFilas redeDeFilas) {
         double tempoLivreMedio = 0.0;
         for (CS_Comunicacao link : redeDeFilas.getLinks()) {
             double aux = link.getMetrica().getSegundosDeTransmissao();
@@ -152,12 +152,12 @@ public class MetricasGlobais implements Serializable {
         this.satisfacaoMedia = satisfacaoMedia;
     }
 
-    public void setOciosidadeComputacao(double ociosidadeComputacao) {
-        this.ociosidadeComputacao = ociosidadeComputacao;
+    public void setOciosidadeTarefa(double ociosidadeComputacao) {
+        this.ociosidadeTarefa = ociosidadeComputacao;
     }
 
-    public void setOciosidadeComunicacao(double ociosidadeComunicacao) {
-        this.ociosidadeComunicacao = ociosidadeComunicacao;
+    public void setOciosidadeComunicacaoTarefa(double ociosidadeComunicacao) {
+        this.ociosidadeComunicacaoTarefa = ociosidadeComunicacao;
     }
 
     public void setEficiencia(double eficiencia) {
@@ -167,8 +167,8 @@ public class MetricasGlobais implements Serializable {
     public void add(MetricasGlobais global) {
         tempoSimulacao += global.getTempoSimulacao();
         satisfacaoMedia += global.getSatisfacaoMedia();
-        ociosidadeComputacao += global.getOciosidadeComputacao();
-        ociosidadeComunicacao += global.getOciosidadeComunicacao();
+        ociosidadeTarefa += global.getOciosidadeTarefa();
+        ociosidadeComunicacaoTarefa += global.getOciosidadeComunicacaoTarefa();
         eficiencia += global.getEficiencia();
         total++;
     }
@@ -182,8 +182,8 @@ public class MetricasGlobais implements Serializable {
         String texto = "\t\tSimulation Results\n\n";
         texto += String.format("\tTotal Simulated Time = %g \n", tempoSimulacao / totalTemp);
         texto += String.format("\tSatisfaction = %g %%\n", satisfacaoMedia / totalTemp);
-        texto += String.format("\tIdleness of processing resources = %g %%\n", ociosidadeComputacao / totalTemp);
-        texto += String.format("\tIdleness of communication resources = %g %%\n", ociosidadeComunicacao / totalTemp);
+        texto += String.format("\tIdleness of task = %g %%\n", ociosidadeTarefa / totalTemp);
+        texto += String.format("\tIdleness of communication resources in the task = %g %%\n", ociosidadeComunicacaoTarefa / totalTemp);
         texto += String.format("\tEfficiency = %g %%\n", eficiencia / totalTemp);
         if (eficiencia / totalTemp > 70.0) {
             texto += "\tEfficiency GOOD\n ";

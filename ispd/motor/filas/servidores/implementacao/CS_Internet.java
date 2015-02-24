@@ -110,7 +110,7 @@ public class CS_Internet extends CS_Comunicacao implements Vertice {
     public void saidaDeCliente(Simulacao simulacao, Tarefa cliente) {
         pacotes--;
         //Incrementa o número de Mbits transmitido por este link
-        this.getMetrica().incMbitsTransmitidos(cliente.getTamComunicacao());
+        this.getMetrica().incUnidadesTransmitidas(cliente.getTamComunicacao());
         //Incrementa o tempo de transmissão
         double tempoTrans = this.tempoTransmitir(cliente.getTamComunicacao());
         this.getMetrica().incSegundosDeTransmissao(tempoTrans);
@@ -128,7 +128,7 @@ public class CS_Internet extends CS_Comunicacao implements Vertice {
     @Override
     public void requisicao(Simulacao simulacao, Mensagem cliente, int tipo) {
         //Incrementa o número de Mbits transmitido por este link
-        this.getMetrica().incMbitsTransmitidos(cliente.getTamComunicacao());
+        this.getMetrica().incUnidadesTransmitidas(cliente.getTamComunicacao());
         //Incrementa o tempo de transmissão
         double tempoTrans = this.tempoTransmitir(cliente.getTamComunicacao());
         this.getMetrica().incSegundosDeTransmissao(tempoTrans);
