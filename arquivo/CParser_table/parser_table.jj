@@ -1,0 +1,390 @@
+/*
+
+  C grammar defintion for use with JavaCC
+  Contributed by Doug South (dsouth@squirrel.com.au) 21/3/97
+
+  This parser assumes that the C source file has been preprocessed : all
+  #includes have been included and all macros have been expanded. I accomplish
+  this with "gcc -P -E <source file> > <output file>".
+
+  There is a problem with compiler specific types, such as __signed, __const,
+  __inline__, etc. These types can be added as typedef types before the parser
+  is run on a file. See main() for an example. I have also found a strange little
+  compiler specific "type" if you can call it that. It is __attribute__, but it
+  does not seem to be used as a type. I found that just deleting the __attribute__
+  and the following "offensive" code works.
+
+  This grammar also prints out all the types defined while parsing the file. This
+  is done via a call to printTypes() when the parser is complete. If you do not want
+  this, just comment out the printTypes() method call in the production rule
+  TranslationUnit(), which BTW is the root node for parsing a C source file.
+
+  I have not in anyway extensively tested this grammar, in fact it is barely tested,
+  but I imagine it is better to have a starting point for a C grammar other than from
+  scratch. It has not been optimized in anyway, my main aim was to get a parser that
+  works. Lookahead may not be optimum at choice points and may even be insufficient at
+  times. I choose to err on the side of not optimum if I made a choice at all.
+
+  If you use this grammar, I would appreciate hearing from you. I will try to maintain
+  this grammar to the best of my ability, but at this point in time, this is only a side
+  hobby (unless someone wants to pay me for doing JavaCC work!). In that regards, I am
+  interested in hearing bugs and comments.
+
+  TODO:
+
+    Insert the appropriate code to enable C source trees from this grammar.
+
+=============================================
+3/2/06: Modified by Tom Copeland
+- STRING_LITERAL now handles embedded escaped newlines, thanks to J.Chris Findlay for the patch
+- Works with JavaCC 4.0
+- Preprocessor directives are now simply SKIP'd, so no need to run C files through GCC first
+
+  */
+options {
+    STATIC = false;
+}
+
+PARSER_BEGIN(CParser_table)
+
+package yasc.arquivo.CParser_table;
+
+import java.util.*;
+import java.applet.Applet;
+import javax.script.*;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import yasc.gui.entrada.Parser;
+import yasc.motor.metricas.MetricasComunicacao;
+
+
+  public class CParser_table implements CParser_tableConstants {
+
+    public static List<String> TableOfNames = new ArrayList<String>();
+    public static List<String> TableOfValues = new ArrayList<String>();
+    public static String str = "";
+    public static String valorFinal;
+    InputStream inp;
+    public static int k;
+    public static boolean origem;
+    public static boolean destino;
+    public static ArrayList<String> valores = new ArrayList<String>();
+    //Declarações das listas que armazenan as colunas
+    public static ArrayList<String> InputColNames = new ArrayList<String>();
+    public static ArrayList<String> OutputColNames = new ArrayList<String>();
+    //Armazena valores da tabela também armazenado no parcer
+    public static ArrayList<ArrayList<String>> InputValues = new ArrayList<ArrayList<String>>();
+    public static ArrayList<ArrayList<String>> OutputValues = new ArrayList<ArrayList<String>>();
+    /*Armazena valores referentes aos ids dos objs e valores*/
+    public static ArrayList<ArrayList<String>> TableResolve = new ArrayList<ArrayList<String>>();
+    public static ArrayList<String> idObj = new ArrayList<String>(); //posição 0 no TableResolve
+    public static ArrayList<String> nomeVar = new ArrayList<String>(); //posição 1 no TableResolve
+    public static ArrayList<String> valorVar = new ArrayList<String>(); //posição 2 no TableResolve
+    /*Arrays para armazenar valores finais dos objs*/
+    public static ArrayList<String> IdObjFinal = new ArrayList<String>();
+    public static ArrayList<String> valorResult = new ArrayList<String>();
+    /*Armazena objetos de origem e objetos destino*/
+    public static ArrayList<ArrayList<String>> Passagem = new ArrayList<ArrayList<String>>();
+    /*Armazena se o objeto é somente destino*/
+    public static ArrayList<String> idDestino = new ArrayList<String>();
+    public static ArrayList<String> valorDestino = new ArrayList<String>();
+
+
+    public static Object InterpretaExp(String Str, CParser_table parser) throws ScriptException{
+        origem = CS_Instantaneo.ori;
+        destino = CS_Instantaneo.dest;
+        InputValues = Parser.inpTable;
+        OutputValues = Parser.outTable;
+        InputColNames = Parser.colunasIn;
+        OutputColNames = Parser.colunasOut;
+
+
+        try {
+            parser.Formula();
+            System.out.println("Sai parser.formula()");
+            ResolveFormula();
+        }
+        catch(ParseException e){
+            System.out.println("C Parser Version 0.1Alpha:  Encountered errors during parse.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Hastable for storing typedef types
+    private static Set types = new HashSet();
+
+    // Stack for determining when the parser
+    // is parsing a typdef definition.
+    private static Stack typedefParsingStack = new Stack();
+
+    // Returns true if the given string is
+    // a typedef type.
+    private static boolean isType(String type){
+          return types.contains(type);
+    }
+
+    // Add a typedef type to those already defined
+    private static void addType(String type){
+          types.add(type);
+    }
+
+    // Prints out all the types used in parsing the c source
+    private static void printTypes(){
+      for (Iterator i = types.iterator(); i.hasNext();) {
+        System.out.println(i.next());
+      }
+    }
+
+    /*--------- Armazena os valores passados pelo usuário para o Array a ser analisado--------*/    
+    //This method recive the name of a variable and add his value at ArrayList valores 
+    public static void retornar(String variavel){
+        System.out.println("In retornar");
+        System.out.println(variavel);
+          int posicao = TableOfNames.indexOf(variavel);
+          if(posicao!=-1){
+              //add em valores somente for menor do que a qnt de entradas
+              if(posicao < InputColNames.size()){
+                String valor = TableOfValues.get(posicao);
+                valores.add(valor);
+                System.out.println("Add: " + valor);
+             }
+          }
+    }
+    
+  /*---------- analise dos valores armazenados ---------------------------------------------*/
+    
+    public static String ResolveFormula(){
+        String res = "";
+        k = Instantaneo.j;
+ 
+        //caso o objeto seja de origem ou objeto unico
+         if(true == origem){
+            if(1 == valores.size()){
+                System.out.println("1");
+                res =  Analise( valores);
+                return res;
+            }else{
+                System.out.println("2");
+                PreencheTable();
+                res =  Analise( valores);
+                valorResult.add(res);
+               if(true == destino){
+                    idDestino.add(IdObjFinal.get(k));
+                    valorDestino.add(res);
+               }
+            } 
+        }
+        else{
+             //caso o objeto seja somente destino
+            if(true == destino){
+                System.out.println("3");
+                PreencheTable();
+                TrocaVars();
+                res =  Analise( valores);
+                valorResult.add(res);
+                idDestino.add(IdObjFinal.get(k));
+                valorDestino.add(res);
+                TableResolve.add(idObj);
+                TableResolve.add(nomeVar);
+                TableResolve.add(valorVar);
+                Passagem.add(CS_Instantaneo.ancestral);
+                Passagem.add(CS_Instantaneo.goTo);
+                System.out.println("\n\n\n");
+                System.out.println("Matrix final:\n\n");
+                System.out.println(TableResolve.get(0));
+                System.out.println(TableResolve.get(1));
+                System.out.println(TableResolve.get(2));
+                System.out.println("\n\n\n");
+                System.out.println("\n\n\n");
+                System.out.println("Passagem table:\n\n");
+                System.out.println(Passagem.get(0));
+                System.out.println(Passagem.get(1));
+                System.out.println("\n\n\n");
+                
+            }
+            //caso o objeto seja um no de passagem
+            else {
+                if(false == origem){
+                   System.out.println("4");
+                   PreencheTable();
+                   TrocaVars();
+                   res =  Analise( valores);
+                   valorResult.add(res);
+                }
+            }
+        }
+    
+        return valorFinal;   
+    }
+    
+    //Preenche valores
+    public static void PreencheTable(){
+        for(int i = 0; i < TableOfValues.size(); i++){
+            idObj.add(IdObjFinal.get(Instantaneo.j));
+            nomeVar.add(TableOfNames.get(i));
+            valorVar.add(valores.get(i));
+        }
+        Instantaneo.j++;
+    }
+    
+    public static void TrocaVars(){
+
+	String ancestral = "0";//Obj que envia info
+	String l = ""; //armazena valor do resultado de ancestral
+	String changeVar = "a"; //Variavel que será trocada
+
+	//Procura valor de troca
+	for(int i = 0; i < IdObjFinal.size(); i++){
+		if(ancestral.equals(IdObjFinal.get(i))){
+			l = valorResult.get(i);
+		}
+	}
+	//Troca valores na Table1
+	CorrigeValor(l, changeVar);
+	//troca valores no array valores que será analisado
+	CorrigeArray(l, changeVar);
+}
+
+    public static void CorrigeValor(String l, String changeVar){
+        for(int i = 0; i < idObj.size(); i++){
+            if(IdObjFinal.get(k).equals(idObj.get(i)) && nomeVar.get(i).equals(changeVar)){
+                valorVar.remove(i);
+                valorVar.add(i, l);
+            }
+        }
+    }
+
+    public static void CorrigeArray(String l, String changeVar){
+        int position;
+        position = TableOfNames.indexOf(changeVar);
+        valores.remove(position);
+        valores.add(position, l);
+    }
+
+    //Analisa valores armazenados no ArrayList valores
+    public static String Analise (ArrayList<String> valores){
+          ArrayList<String> arrayInput = new ArrayList<String>();
+          boolean cont = false;
+          String retorno = "";
+          int posicaoLinha;
+          for(int i=0; i < InputColNames.size(); i++){
+             arrayInput = InputValues.get(i);
+             for(int j=0; j < valores.size(); j++){
+                if(valores.get(j) == arrayInput.get(j)){
+                   cont =true;
+                }//fim if
+                else{
+                   cont = false;
+                }//fim else
+             }//fim for externo
+
+             if(cont == true){
+                posicaoLinha = i;
+                i = InputColNames.size();
+                retorno = AnaliseOutput(posicaoLinha);
+             }
+             valores.clear();
+          }//fim for externo
+
+          MetricasComunicacao.valorSaida.add(retorno);
+          System.out.println(retorno);
+          return retorno;
+     }
+
+    public static String AnaliseOutput (int k){
+        ArrayList<String> arrayOutput = new ArrayList<String>();
+        arrayOutput = OutputValues.get(k);
+        return OutputValues.get(0).toString();
+    }
+
+}
+
+PARSER_END(CParser_table)
+
+SKIP : {
+ " "
+|  "\t"
+|  "\n"
+|  "\r"
+|  <"//" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>
+|  <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
+| "#" : PREPROCESSOR_OUTPUT
+| "("
+| ")"
+}
+
+<PREPROCESSOR_OUTPUT> SKIP:
+{
+     "\n" : DEFAULT
+}
+
+<PREPROCESSOR_OUTPUT> MORE:
+{
+ "\\\n"
+ |
+ "\\\r\n"
+ |
+ < ~[] >
+}
+
+
+TOKEN : {
+ <INTEGER_LITERAL: <DECIMAL_LITERAL> (["l","L"])? | <HEX_LITERAL> (["l","L"])? | <OCTAL_LITERAL> (["l","L"])?>
+|  <#DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])*>
+|  <#HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+>
+|  <#OCTAL_LITERAL: "0" (["0"-"7"])*>
+|  <FLOATING_POINT_LITERAL: (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)? (["f","F","d","D"])? | "." (["0"-"9"])+ (<EXPONENT>)? (["f","F","d","D"])? | (["0"-"9"])+ <EXPONENT> (["f","F","d","D"])? | (["0"-"9"])+ (<EXPONENT>)? ["f","F","d","D"]>
+|  <#EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+>
+|  <CHARACTER_LITERAL: "\'" (~["\'","\\","\n","\r"] | "\\" (["n","t","b","r","f","\\","\'","\""] | ["0"-"7"] (["0"-"7"])? | ["0"-"3"] ["0"-"7"] ["0"-"7"])) "\'">
+|  <STRING_LITERAL: "\"" ( ~["\"","\\","\n","\r"] | "\\" ( ["n","t","b","r","f","\\","\'","\""] | ["0"-"7"] (["0"-"7"])?  | ["0"-"3"] ["0"-"7"] ["0"-"7"] | ( ["\n","\r"] | "\r\n")))* "\"">
+}
+
+TOKEN : {
+ <IDENTIFIER: <LETTER> (<LETTER> | <DIGIT>)*>
+|  <#LETTER: ["$","A"-"Z","_","a"-"z"]>
+|  <#DIGIT: ["0"-"9"]>
+}
+
+
+void Formula(): {}
+{
+	(Expression())* ";"
+}
+
+void Expression() : {}
+{
+	  (UnaryExpression() /*[Signal()]*/)   
+}
+
+/*void Signal() : {Token s = null;}
+{
+	( "+" | "-" | "*" | "/") {retornarSinais(s.image);}
+}*/
+
+void UnaryExpression() : {}
+{
+	Id() | Constant()
+}
+
+void Id() : {Token t;}
+{
+	t = <IDENTIFIER> {retornar(t.image);}
+}
+
+void Constant() : {}
+{
+	"[" (<INTEGER_LITERAL>) "]"
+}
+
+
+
+
+
+
+
