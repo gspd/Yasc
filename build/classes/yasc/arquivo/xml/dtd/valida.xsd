@@ -1,0 +1,302 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="system">
+    <xs:complexType>
+     <xs:sequence>
+        <xs:element name="FilaServidor" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="Capacity"/>
+            <xs:attribute type="xs:double" name="DelayRate"/>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:boolean" name="FCapacity"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:double" name="PreemptionTime"/>
+            <xs:attribute type="xs:double" name="ProbServerFailure"/>
+            <xs:attribute type="xs:double" name="ProbServiceFailure"/>
+            <xs:attribute type="xs:string" name="Scheduler"/>
+            <xs:attribute type="xs:double" name="ServiceRate"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FilasServidor" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="Capacity"/>
+            <xs:attribute type="xs:double" name="DelayRate"/>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:boolean" name="FCapacity"/>
+            <xs:attribute type="xs:int" name="NumQueues"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:double" name="PreemptionTime"/>
+            <xs:attribute type="xs:double" name="ProbServerFailure"/>
+            <xs:attribute type="xs:double" name="ProbServiceFailure"/>
+            <xs:attribute type="xs:string" name="Scheduler"/>
+            <xs:attribute type="xs:double" name="ServiceRate"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FilasServidores" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="Capacity"/>
+            <xs:attribute type="xs:double" name="DelayRate"/>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:boolean" name="FCapacity"/>
+            <xs:attribute type="xs:int" name="NumServ"/>
+            <xs:attribute type="xs:int" name="NumQueues"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:double" name="PreemptionTime"/>
+            <xs:attribute type="xs:double" name="ProbServerFailure"/>
+            <xs:attribute type="xs:double" name="ProbServiceFailure"/>
+            <xs:attribute type="xs:string" name="Scheduler"/>
+            <xs:attribute type="xs:double" name="ServiceRate"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>	
+        <xs:element name="FilaServidores" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="Capacity"/>
+            <xs:attribute type="xs:double" name="DelayRate"/>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:boolean" name="FCapacity"/>
+            <xs:attribute type="xs:int" name="NumServ"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:double" name="PreemptionTime"/>
+            <xs:attribute type="xs:double" name="ProbServerFailure"/>
+            <xs:attribute type="xs:double" name="ProbServiceFailure"/>
+            <xs:attribute type="xs:string" name="Scheduler"/>
+            <xs:attribute type="xs:double" name="ServiceRate"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ServidorInfinito" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x" use="optional"/>
+                  <xs:attribute type="xs:int" name="y" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global" use="optional"/>
+                  <xs:attribute type="xs:int" name="imgId" use="optional"/>
+                  <xs:attribute type="xs:int" name="local" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:double" name="DelayRate" use="optional"/>
+            <xs:attribute type="xs:boolean" name="Destination" use="optional"/>
+            <xs:attribute type="xs:boolean" name="Origination" use="optional"/>
+            <xs:attribute type="xs:double" name="PreemptionTime" use="optional"/>
+            <xs:attribute type="xs:double" name="ProbServerFailure" use="optional"/>
+            <xs:attribute type="xs:double" name="ProbServiceFailure" use="optional"/>
+            <xs:attribute type="xs:double" name="ServiceRate" use="optional"/>
+            <xs:attribute type="xs:string" name="id" use="optional"/>
+            <xs:attribute type="xs:int" name="Capacity" use="optional"/>
+            <xs:attribute type="xs:boolean" name="FCapacity" use="optional"/>
+            <xs:attribute type="xs:string" name="Scheduler" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Instantaneo" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Vars" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name"/>
+                      <xs:attribute type="xs:string" name="type"/>
+                      <xs:attribute type="xs:string" name="value"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:string" name="Diagram"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:string" name="TransFunc"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Durativo" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Vars" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name"/>
+                      <xs:attribute type="xs:string" name="type"/>
+                      <xs:attribute type="xs:string" name="value"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="position">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="x"/>
+                  <xs:attribute type="xs:int" name="y"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global"/>
+                  <xs:attribute type="xs:int" name="imgId"/>
+                  <xs:attribute type="xs:int" name="local"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:boolean" name="Destination"/>
+            <xs:attribute type="xs:boolean" name="Origination"/>
+            <xs:attribute type="xs:double" name="TimeTransf"/>
+            <xs:attribute type="xs:string" name="TransFunc"/>
+            <xs:attribute type="xs:string" name="id"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="link" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="connect">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="destination" use="optional"/>
+                  <xs:attribute type="xs:int" name="origination" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="position" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="originPointX" use="optional"/>
+                  <xs:attribute type="xs:int" name="originPointY" use="optional"/>
+                  <xs:attribute type="xs:int" name="destinyPointX" use="optional"/>
+                  <xs:attribute type="xs:int" name="destinyPointY" use="optional"/>
+                  <xs:attribute type="xs:int" name="x" use="optional"/>
+                  <xs:attribute type="xs:int" name="y" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="icon_id">
+                <xs:complexType>
+                  <xs:attribute type="xs:int" name="global" use="optional"/>
+                  <xs:attribute type="xs:int" name="local" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="id" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="load" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="random" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="size">
+                      <xs:complexType>
+                        <xs:attribute type="xs:double" name="ArrivalTime"/>
+                        <xs:attribute type="xs:double" name="average2"/>
+                        <xs:attribute type="xs:double" name="averageNormal"/>
+                        <xs:attribute type="xs:double" name="averagePoisson"/>
+                        <xs:attribute type="xs:double" name="maximum"/>
+                        <xs:attribute type="xs:double" name="minimum"/>
+                        <xs:attribute type="xs:double" name="standardDeviation"/>
+                        <xs:attribute type="xs:int" name="tipoDistr"/>
+			<xs:attribute type="xs:boolean" name="distrIgual"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Tasks"/>
+                </xs:complexType>
+              </xs:element>
+	      <xs:element name="uniform" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="size">
+                      <xs:complexType>
+                        <xs:attribute type="xs:double" name="Size"/>
+                        <xs:attribute type="xs:double" name="ArrivalTime"/>
+			<xs:attribute type="xs:boolean" name="distrIgual"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Tasks"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:double" name="version"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
