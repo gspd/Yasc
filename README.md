@@ -1,3 +1,3 @@
 # Yasc
 
-Yeat Another Simulador Compiler
+Yet Another Simulator Compiler
